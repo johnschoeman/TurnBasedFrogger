@@ -1,12 +1,16 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 
+import AppNavigatorContainer from './AppNavigatorContainer'
+
 import { Colors } from './styles'
 
 const TurnBasedFrogger = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Turn Based Frogger</Text>
+      <View style={styles.container}>
+        <AppNavigatorContainer />
+      </View>
     </View>
   )
 }
@@ -14,12 +18,6 @@ const TurnBasedFrogger = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: Colors.background,
-  },
-  text: {
-    color: Colors.text,
   },
 })
 
