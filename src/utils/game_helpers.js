@@ -13,7 +13,7 @@ export const initialBoard = () => {
     }
     board.push(boardRow)
   }
-  board.push(new Array(0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2))
+  board.push(new Array(0, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 2))
   return board
 }
 

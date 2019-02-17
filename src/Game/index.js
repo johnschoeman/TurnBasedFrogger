@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 
 import Header from './Header'
 import Board from './Board'
+import Footer from './Footer'
 
 const GameScreen = ({ navigation }) => {
   return (
@@ -14,9 +15,7 @@ const GameScreen = ({ navigation }) => {
         <Board />
       </View>
       <View style={styles.footer}>
-        <TouchableOpacity onPress={() => navigation.navigate('Landing')}>
-          <Text>Go Back</Text>
-        </TouchableOpacity>
+        <Footer navigation={navigation} />
       </View>
     </View>
   )

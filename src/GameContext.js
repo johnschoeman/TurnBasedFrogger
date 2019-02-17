@@ -7,11 +7,12 @@ const { Provider, Consumer } = React.createContext()
 
 const frogger = 'frogger'
 const traffic = 'traffic'
+const initialFroggerLocation = { rowIdx: 11, colIdx: 6 }
 
 class GameProvider extends React.Component {
   state = {
     board: GameHelpers.initialBoard(),
-    froggerLocation: { rowIdx: 8, colIdx: 6 },
+    froggerLocation: initialFroggerLocation,
     currentPlayer: frogger,
   }
 
@@ -86,9 +87,23 @@ class GameProvider extends React.Component {
     }
   }
 
+  resetGame = () => {
+    this.setState({
+      board: GameHelpers.initialBoard(),
+      froggerLocation: initialFroggerLocation,
+      currentPlayer: frogger,
+    })
+  }
+
   render() {
     return (
-      <Provider value={{ ...this.state, selectTile: this.selectTile }}>
+      <Provider
+        value={{
+          ...this.state,
+          selectTile: this.selectTile,
+          resetGame: this.resetGame,
+        }}
+      >
         {this.props.children}
       </Provider>
     )
