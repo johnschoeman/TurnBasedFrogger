@@ -2,15 +2,16 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 
 import AppNavigatorContainer from './AppNavigatorContainer'
+import { GameProvider } from './GameContext'
 
 import { Colors } from './styles'
 
 const TurnBasedFrogger = () => {
   return (
     <View style={styles.container}>
-      <View style={styles.container}>
+      <GameProvider>
         <AppNavigatorContainer />
-      </View>
+      </GameProvider>
     </View>
   )
 }

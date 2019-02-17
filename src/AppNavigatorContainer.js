@@ -10,7 +10,7 @@ const AppNavigator = createStackNavigator(
     Game: GameScreen,
   },
   {
-    initialRouteName: 'Landing',
+    initialRouteName: 'Game',
     headerMode: 'none',
     defaultNavigationOptions: {
       gesturesEnabled: false,
