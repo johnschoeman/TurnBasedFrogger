@@ -5,21 +5,55 @@ import { GameHelpers } from './utils'
 
 const { Provider, Consumer } = React.createContext()
 
+const frogger = 'frogger'
+const traffic = 'traffic'
+
 class GameProvider extends React.Component {
   state = {
     board: GameHelpers.initialBoard(),
     froggerLocation: { rowIdx: 8, colIdx: 6 },
+    currentPlayer: frogger,
   }
 
-  moveFrogger = newFroggerTile => {
+  tick = () => {
+    // this.moveTraffic()
+    this.swapPlayers()
+  }
+
+  swapPlayers = () => {
+    const { currentPlayer } = this.state
+    if (currentPlayer === frogger) {
+      this.setState({ currentPlayer: traffic })
+    } else {
+      this.setState({ currentPlayer: frogger })
+    }
+  }
+
+  selectTile = newTile => {
+    const { currentPlayer } = this.state
+    if (currentPlayer === frogger) {
+      this.moveFrogger(newTile)
+    } else {
+      this.placeTraffic(newTile)
+    }
+  }
+
+  moveFrogger = newTile => {
     const { board, froggerLocation: oldFroggerTile } = this.state
-    if (this.validMove(newFroggerTile)) {
-      const newBoard = GameHelpers.updateBoard(
-        board,
-        oldFroggerTile,
-        newFroggerTile
-      )
-      this.setState({ board: newBoard, froggerLocation: newFroggerTile })
+    if (this.validMove(newTile)) {
+      const newBoard = GameHelpers.moveFrogger(board, oldFroggerTile, newTile)
+      this.setState({ board: newBoard, froggerLocation: newTile }, () => {
+        this.tick()
+      })
+    }
+  }
+
+  placeTraffic = tile => {
+    const { board } = this.state
+    if (this.validPlacement(tile)) {
+      const newBoard = GameHelpers.placeTraffic(board, tile)
+      this.setState({ board: newBoard })
+      this.tick()
     }
   }
 
@@ -35,9 +69,24 @@ class GameProvider extends React.Component {
     }
   }
 
+  validPlacement = tile => {
+    const {
+      froggerLocation: { rowIdx: froggerRowIdx, colIdx: froggerColIdx },
+    } = this.state
+    const { rowIdx, colIdx } = tile
+    if (
+      colIdx === 0 &&
+      !(froggerRowIdx === rowIdx && froggerColIdx === colIdx)
+    ) {
+      return true
+    } else {
+      return false
+    }
+  }
+
   render() {
     return (
-      <Provider value={{ ...this.state, moveFrogger: this.moveFrogger }}>
+      <Provider value={{ ...this.state, selectTile: this.selectTile }}>
         {this.props.children}
       </Provider>
     )

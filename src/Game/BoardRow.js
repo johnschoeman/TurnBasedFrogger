@@ -8,14 +8,23 @@ import { Colors } from '../styles'
 const BoardRow = ({ row, rowIdx, moveFogger }) => {
   return (
     <GameConsumer>
-      {({ moveFrogger }) => (
+      {({ selectTile }) => (
         <View style={styles.container}>
           {row.map((col, colIdx) => {
             const tile = { rowIdx, colIdx }
-            const tileText = col === 1 ? 'F' : '-'
+            let tileText
+
+            if (col === 0) {
+              tileText = '-'
+            } else if (col === 1) {
+              tileText = 'F'
+            } else if (col === 2) {
+              tileText = '[T]'
+            }
+
             return (
               <TouchableOpacity
-                onPress={() => moveFrogger(tile)}
+                onPress={() => selectTile(tile)}
                 style={styles.tile}
                 key={`col-${colIdx}`}
               >

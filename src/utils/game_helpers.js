@@ -8,11 +8,18 @@ export const initialBoard = () => {
   return board
 }
 
-export const updateBoard = (oldBoard, oldTile, newTile) => {
+export const moveFrogger = (oldBoard, oldTile, newTile) => {
   const newBoard = ArrayHelpers.deepDup(oldBoard)
   const { rowIdx: oldRowIdx, colIdx: oldColIdx } = oldTile
   const { rowIdx: newRowIdx, colIdx: newColIdx } = newTile
   newBoard[oldRowIdx][oldColIdx] = 0
   newBoard[newRowIdx][newColIdx] = 1
+  return newBoard
+}
+
+export const placeTraffic = (oldBoard, newTile) => {
+  const newBoard = ArrayHelpers.deepDup(oldBoard)
+  const { rowIdx, colIdx } = newTile
+  newBoard[rowIdx][colIdx] = 2
   return newBoard
 }

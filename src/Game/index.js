@@ -1,13 +1,14 @@
 import React from 'react'
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 
+import Header from './Header'
 import Board from './Board'
 
 const GameScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text>Turn Based Frogger</Text>
+        <Header />
       </View>
       <View style={styles.board}>
         <Board />
