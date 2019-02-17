@@ -15,9 +15,10 @@ class GameProvider extends React.Component {
     currentPlayer: frogger,
   }
 
-  tick = () => {
-    // this.moveTraffic()
-    this.swapPlayers()
+  moveTraffic = () => {
+    const { board } = this.state
+    const newBoard = GameHelpers.moveTraffic(board)
+    this.setState({ board: newBoard })
   }
 
   swapPlayers = () => {
@@ -43,7 +44,8 @@ class GameProvider extends React.Component {
     if (this.validMove(newTile)) {
       const newBoard = GameHelpers.moveFrogger(board, oldFroggerTile, newTile)
       this.setState({ board: newBoard, froggerLocation: newTile }, () => {
-        this.tick()
+        this.moveTraffic()
+        this.swapPlayers()
       })
     }
   }
@@ -53,7 +55,7 @@ class GameProvider extends React.Component {
     if (this.validPlacement(tile)) {
       const newBoard = GameHelpers.placeTraffic(board, tile)
       this.setState({ board: newBoard })
-      this.tick()
+      this.swapPlayers()
     }
   }
 
